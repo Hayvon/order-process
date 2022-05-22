@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1yii63r" name="Kundenrabatt" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <decision id="Decision_0f1z7h9" name="Kundenrabatt">
+    <decisionTable id="DecisionTable_1slrkar" hitPolicy="FIRST">
+      <input id="Input_1" label="Menge" biodi:width="192" camunda:inputVariable="amount">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ccvema" label="Klasse" camunda:inputVariable="customer_class">
+        <inputExpression id="LiteralExpression_0rlq2zg" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1bwe59m">
+          <text></text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Rabatt" name="customer_discount" typeRef="number" />
+      <rule id="DecisionRule_0sh8ubw">
+        <inputEntry id="UnaryTests_026zx17">
+          <text>[50..199]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_073w2oi">
+          <text>"A"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wmsg95">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17i558v">
+        <inputEntry id="UnaryTests_1uuo85v">
+          <text>[50..199]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nelsj9">
+          <text>B</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gz27xv">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yzlr52">
+        <inputEntry id="UnaryTests_0hxwbsg">
+          <text>[50..199]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n9lg3m">
+          <text>C</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q77mgk">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ewsec7">
+        <inputEntry id="UnaryTests_12tryid">
+          <text>[200..499]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k765rp">
+          <text>A</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qjon7y">
+          <text>7</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gfw67i">
+        <inputEntry id="UnaryTests_1mlysl8">
+          <text>[200..499]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bpotcm">
+          <text>B</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lzvih2">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qieebj">
+        <inputEntry id="UnaryTests_1q4k6h8">
+          <text>[200..499]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j63hrl">
+          <text>C</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rh2d4c">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06lu7e1">
+        <inputEntry id="UnaryTests_1i75wuu">
+          <text>&gt;= 500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ocssmz">
+          <text>A</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xh9qeh">
+          <text>12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0twwy7q">
+        <inputEntry id="UnaryTests_135s7ax">
+          <text>&gt;= 500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16bch0u">
+          <text>B</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19u1h71">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1eukqfr">
+        <inputEntry id="UnaryTests_1parxkc">
+          <text>&gt;= 500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dqw4f5">
+          <text>C</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0axhylo">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k4i6bk">
+        <inputEntry id="UnaryTests_0r0f7ws">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08yymsv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1sq79ux">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0f1z7h9">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

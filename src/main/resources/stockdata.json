@@ -1,0 +1,52 @@
+[
+  {
+    "productid": "PKH9N",
+    "name": "Kugelschreiber",
+    "amount": 5000
+  },
+  {
+    "productid": "PGAJR",
+    "name": "Kalendar",
+    "amount": 1400
+  },
+  {
+    "productid": "PFE6W",
+    "name":  "Klebezettel (60)",
+    "amount": 5200
+  },
+  {
+    "productid": "PFU3D",
+    "name":  "Klebezettel (120)",
+    "amount": 1800
+  },
+  {
+    "productid": "P0C25",
+    "name":  "Schlüsselanhänger",
+    "amount": 5800
+  },
+  {
+    "productid": "PNFD9",
+    "name":  "USB-Stick",
+    "amount": 5200
+  },
+  {
+    "productid": "PMKZF",
+    "name":  "Tasse",
+    "amount": 4800
+  },
+  {
+    "productid": "PW0X5",
+    "name":  "Tasche",
+    "amount": 800
+  },
+  {
+    "productid": "P7HWX",
+    "name":  "Flaschenöffner",
+    "amount": 4600
+  },
+  {
+    "productid": "P4B7R",
+    "name":  "Bleistift",
+    "amount": 5100
+  }
+]

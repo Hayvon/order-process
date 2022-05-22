@@ -1,0 +1,10 @@
+Hochschule Karlsruhe
+Automatisierung von Geschäftsprozessen
+Sommersemester 2022
+
+Übung 5 - Camunda
+
+Gruppe
+RZ-Kennung 1
+RZ-Kennung 2
+RZ-Kennung 3

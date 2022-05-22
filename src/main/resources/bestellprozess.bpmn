@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1u0nwkk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:error id="Error_15yv9og" name="APPROVAL_DENIED" errorCode="APPROVAL_DENIED" camunda:errorMessage="Message_DamageRequestNotApproved" />
+  <bpmn:process id="Process_1pw11uq" name="Bestellprozesss" isExecutable="true">
+    <bpmn:startEvent id="Event_0jlxby2" name="Bestellinformationen eingeben">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="customer_name" label="Vorname" type="string" />
+          <camunda:formField id="customer_surname" label="Nachname" type="string" />
+          <camunda:formField id="customer_company" label="Firma" type="string" />
+          <camunda:formField id="customer_adress" label="Adresse" type="string" />
+          <camunda:formField id="product_id" label="Produkt ID" type="string" />
+          <camunda:formField id="amount" label="Menge" type="long" defaultValue="0" />
+          <camunda:formField id="customer_already_exists " label="Kunde existiert bereits" type="boolean" />
+          <camunda:formField id="customer_id" label="Customer ID" type="string" defaultValue="73Z36" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_045v96v</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0cuzawr" name="Kunde bekannt?">
+      <bpmn:incoming>Flow_045v96v</bpmn:incoming>
+      <bpmn:outgoing>Flow_1roli7x</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15bzmjp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_1supdss" name="Kundendaten laden" camunda:delegateExpression="#{prefill}">
+      <bpmn:incoming>Flow_15bzmjp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sgjm1f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0sgjm1f" sourceRef="Activity_1supdss" targetRef="Activity_1he2mtd" />
+    <bpmn:businessRuleTask id="Activity_1he2mtd" name="Kundenrabatt bestimmen" camunda:resultVariable="customer_discount" camunda:decisionRef="Decision_0f1z7h9" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Input_24o6bbq" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0sgjm1f</bpmn:incoming>
+      <bpmn:incoming>Flow_1roli7x</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fclyso</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1roli7x" name="Nein" sourceRef="Gateway_0cuzawr" targetRef="Activity_1he2mtd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!customer_already_exists}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0fclyso" sourceRef="Activity_1he2mtd" targetRef="Activity_1uvapkn" />
+    <bpmn:userTask id="Activity_1uvapkn" name="Angaben prüfen" camunda:candidateGroups="camunda-admin">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="customer_name_check" label="Vorname" type="string" defaultValue="${execution.getVariable(&#34;customer_name&#34;)}" />
+          <camunda:formField id="customer_surname_check" label="Nachname" type="string" defaultValue="${execution.getVariable(&#34;customer_surname&#34;)}" />
+          <camunda:formField id="curstomer_company_check" label="Firma" type="string" defaultValue="${execution.getVariable(&#34;customer_comany&#34;)}" />
+          <camunda:formField id="customer_adress_check" label="Adresse" type="string" defaultValue="${execution.getVariable(&#34;customer_adress&#34;)}" />
+          <camunda:formField id="product_id_check" label="Produkt ID" type="string" defaultValue="${execution.getVariable(&#34;product_id&#34;)}" />
+          <camunda:formField id="amount_check" label="Menge" type="long" defaultValue="${customer_discount}" />
+          <camunda:formField id="customer_id_check" label="Kunden ID" type="string" defaultValue="${execution.getVariable(&#34;customer_id&#34;)}" />
+          <camunda:formField id="customer_class_check" label="Klasse" type="string" defaultValue="${execution.getVariable(&#34;customer_class&#34;)}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fclyso</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_15bzmjp" name="Ja" sourceRef="Gateway_0cuzawr" targetRef="Activity_1supdss">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${customer_already_exists}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_045v96v" sourceRef="Event_0jlxby2" targetRef="Gateway_0cuzawr" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1pw11uq">
+      <bpmndi:BPMNEdge id="Flow_1roli7x_di" bpmnElement="Flow_1roli7x">
+        <di:waypoint x="300" y="125" />
+        <di:waypoint x="300" y="180" />
+        <di:waypoint x="610" y="180" />
+        <di:waypoint x="610" y="140" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="444" y="162" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sgjm1f_di" bpmnElement="Flow_0sgjm1f">
+        <di:waypoint x="490" y="100" />
+        <di:waypoint x="560" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15bzmjp_di" bpmnElement="Flow_15bzmjp">
+        <di:waypoint x="325" y="100" />
+        <di:waypoint x="390" y="100" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="352" y="82" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_045v96v_di" bpmnElement="Flow_045v96v">
+        <di:waypoint x="218" y="100" />
+        <di:waypoint x="275" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fclyso_di" bpmnElement="Flow_0fclyso">
+        <di:waypoint x="660" y="100" />
+        <di:waypoint x="730" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0jlxby2_di" bpmnElement="Event_0jlxby2">
+        <dc:Bounds x="182" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="125" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0cuzawr_di" bpmnElement="Gateway_0cuzawr" isMarkerVisible="true">
+        <dc:Bounds x="275" y="75" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="260" y="45" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1neb0oo_di" bpmnElement="Activity_1supdss">
+        <dc:Bounds x="390" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ytx6b8_di" bpmnElement="Activity_1he2mtd">
+        <dc:Bounds x="560" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1p4etdw_di" bpmnElement="Activity_1uvapkn">
+        <dc:Bounds x="730" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
